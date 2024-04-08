@@ -1,6 +1,7 @@
 header {
   padding: 10px;
-  margin: 0 auto;
+  padding-inline: 60px;
+  margin: 30px;
   font-weight: bold;
 }
 
@@ -11,17 +12,21 @@ header nav {
 
 .nav-link {
   text-decoration: none;
-  color: #696969;
+  color: #8b008b;
 }
 
-.auth .nav-link {
+.auth-div {
+  margin-right: -30px;
+}
+
+.auth-div .nav-link {
   margin-left: 20px;
   padding: 7px;
-  border: 3px solid #696969;
+  border: 3px solid #8b008b;
   border-radius: 6px;
 }
 
-.nav-link:hover {
+.auth-div .nav-link:hover {
   color: #e6e6fa;
   border: #e6e6fa;
 }

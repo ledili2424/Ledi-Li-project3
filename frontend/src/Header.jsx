@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import "./Header.css";
+import "./header.css";
 
 export default function Header() {
   return (
@@ -11,7 +11,7 @@ export default function Header() {
         <Link to="/manager" className="nav-link">
           Manage Password
         </Link>
-        <div className="auth">
+        <div className="auth-div">
           <Link to="/login" className="nav-link">
             Log in
           </Link>
