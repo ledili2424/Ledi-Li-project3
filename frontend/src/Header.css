@@ -1,0 +1,27 @@
+header {
+  padding: 10px;
+  margin: 0 auto;
+  font-weight: bold;
+}
+
+header nav {
+  display: flex;
+  justify-content: space-around;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: #696969;
+}
+
+.auth .nav-link {
+  margin-left: 20px;
+  padding: 7px;
+  border: 3px solid #696969;
+  border-radius: 6px;
+}
+
+.nav-link:hover {
+  color: #e6e6fa;
+  border: #e6e6fa;
+}
