@@ -1,10 +1,13 @@
 import { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import "./auth_pages.css";
 
 export default function Signup() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
+  const navigate = useNavigate();
 
   async function onSignUp(e) {
     e.preventDefault();
@@ -19,8 +22,9 @@ export default function Signup() {
         }
       );
       console.log("User sign up successfully!");
+      navigate("/manager");
     } catch (err) {
-      console.log(err);
+      console.log("Error sign up", err);
     }
   }
 
