@@ -6,11 +6,17 @@ import "./auth_pages.css";
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   const navigate = useNavigate();
 
   async function onLogin(e) {
     e.preventDefault();
+    if (!username || !password) {
+      setError("Please enter username and password");
+      return;
+    }
+
     try {
       await axios.post(
         "http://localhost:5000/login",
@@ -26,11 +32,16 @@ export default function Login() {
       navigate("/manager");
     } catch (err) {
       console.log("Error log in", err);
+      if (err.response) {
+        const { message } = err.response.data;
+        setError(message);
+      }
     }
   }
   return (
     <form className="auth-form" onSubmit={onLogin}>
       <h1 className="login-txt">LOG IN</h1>
+      {error && <p>{error}</p>}
       <input
         type="text"
         placeholder="username"

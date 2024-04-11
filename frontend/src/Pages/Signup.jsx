@@ -6,11 +6,16 @@ import "./auth_pages.css";
 export default function Signup() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   async function onSignUp(e) {
     e.preventDefault();
+    if (!username || !password) {
+      setError("Please enter username and password");
+      return;
+    }
+
     try {
       await axios.post(
         "http://localhost:5000/signup",
@@ -25,12 +30,17 @@ export default function Signup() {
       navigate("/manager");
     } catch (err) {
       console.log("Error sign up", err);
+      if (err.response) {
+        const { message } = err.response.data;
+        setError(message);
+      }
     }
   }
 
   return (
     <form onSubmit={onSignUp} className="auth-form">
       <h1 className="signup-txt">SIGN UP</h1>
+      {error && <p>{error}</p>}
       <input
         type="text"
         placeholder="new username"
@@ -39,7 +49,7 @@ export default function Signup() {
       />
       <input
         type="text"
-        placeholder="password"
+        placeholder="password (at least 6 characters)"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />

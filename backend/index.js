@@ -24,6 +24,13 @@ mongoose
 app.post("/signup", async (req, res) => {
   const { username, password } = req.body;
 
+  if (password.length < 6) {
+    return res.status(400).json({
+      status: "fail",
+      message: "Password must be at least 6 characters long",
+    });
+  }
+
   try {
     const salt = bcrypt.genSaltSync(saltRounds);
     const hash = bcrypt.hashSync(password, salt);
@@ -34,9 +41,15 @@ app.post("/signup", async (req, res) => {
 
     res.status(201).json({
       status: "success",
-      message: "User has been crated ",
+      message: "User has been created ",
     });
   } catch (err) {
+    if (err.code == 11000 && err.keyPattern && err.keyPattern.username) {
+      return res.status(400).json({
+        status: "fail",
+        message: "Username has been taken, please enter another name",
+      });
+    }
     res.status(500).json({
       status: "fail",
       message: err,

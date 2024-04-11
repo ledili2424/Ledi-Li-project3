@@ -9,10 +9,10 @@ const UserSchema = new mongoose.Schema({
   password: {
     type: String,
     required: [true, "please provide a password"],
-    minlength: [6, "A password must have more than or equal to 6 chars"],
-  }
+    minlength: [6, "A password must have at least 6 chars"],
+  },
 });
 
-const UserModel = mongoose.model('User', UserSchema)
+const UserModel = mongoose.model("User", UserSchema);
 
 module.exports = UserModel;
