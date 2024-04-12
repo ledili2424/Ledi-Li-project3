@@ -8,7 +8,7 @@ dotenv.config({ path: "./config.env" });
 
 const app = express();
 
-app.use(cors({ credentials: true, origin: "http://localhost:5173" }));
+app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 app.use(express.json());
 
 mongoose

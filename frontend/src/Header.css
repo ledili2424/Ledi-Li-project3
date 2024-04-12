@@ -26,7 +26,14 @@ header nav {
   border-radius: 6px;
 }
 
-.auth-div .nav-link:hover {
+.nav-link:hover {
   color: #e6e6fa;
   border: #e6e6fa;
+}
+
+.username {
+  margin-left: 20px;
+  padding: 7px;
+  text-decoration: none;
+  color: #8b008b;
 }

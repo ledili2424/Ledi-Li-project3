@@ -18,7 +18,7 @@ export default function Signup() {
 
     try {
       await axios.post(
-        "http://localhost:5000/signup",
+        "http://localhost:5000/auth/signup",
         { username, password },
         {
           headers: {

@@ -18,14 +18,14 @@ export default function Login() {
     }
 
     try {
+      axios.defaults.withCredentials = true;
       await axios.post(
-        "http://localhost:5000/login",
+        "http://localhost:5000/auth/login",
         { username, password },
         {
           headers: {
             "Content-Type": "application/json",
           },
-          credentials: "include",
         }
       );
       console.log("User log in successfully!");
