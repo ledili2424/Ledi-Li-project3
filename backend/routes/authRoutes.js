@@ -75,7 +75,7 @@ router.post("/login", async (req, res) => {
       .json({
         status: "success",
         data: {
-          username: user.username,
+          username: username,
           token,
         },
       });
@@ -88,7 +88,12 @@ router.post("/login", async (req, res) => {
 });
 
 router.get("/profile", verifyUser, (req, res) => {
-  return res.status(200).json({ status: "success", name: req.username });
+  return res.status(200).json({ status: "success", username: req.username });
+});
+
+router.post("/logout", (req, res) => {
+  res.clearCookie("access_token");
+  res.status(200).json({ message: "Logged out successfully" });
 });
 
 module.exports = router;

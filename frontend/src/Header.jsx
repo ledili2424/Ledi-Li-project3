@@ -1,10 +1,13 @@
 import { Link } from "react-router-dom";
 import "./header.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { UserContext } from "./UserContext";
 
 export default function Header() {
-  const [username, setUsername] = useState(null);
+  const { userData, setUserData } = useContext(UserContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios
@@ -13,12 +16,25 @@ export default function Header() {
       })
       .then((res) => {
         console.log("Response from server:", res.data);
-        setUsername(res.data.name);
+        setUserData(res.data);
       })
       .catch((err) => console.log("Error fetching user profile:", err));
-  }, []);
+  }, [setUserData]);
 
-  function handleLogout() {}
+  function handleLogout() {
+    axios
+      .post("http://localhost:5000/auth/logout", {
+        withCredentials: true,
+      })
+      .then(() => {
+        console.log("Logged out successfully");
+        setUserData(null);
+        navigate("/login");
+      })
+      .catch((err) => console.log("Error logging out:", err));
+  }
+
+  const username = userData?.username;
 
   return (
     <header>
@@ -31,12 +47,12 @@ export default function Header() {
         </Link>
         {username && (
           <div className="auth-div">
-           <Link to="/manager" className="username">
-          {username}
-        </Link>
-            <Link to="/login" className="nav-link">
-              Log out
+            <Link to="/manager" className="username">
+              {username}
             </Link>
+            <a href="#" className="nav-link" onClick={handleLogout}>
+              Log out
+            </a>
           </div>
         )}
         {!username && (
