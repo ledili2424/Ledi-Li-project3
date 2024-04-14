@@ -2,7 +2,6 @@ export default function Home() {
   return (
     <div>
       <div >
-        <p >HOME PAGE</p>
         <ul>
           <li>a</li>
           <li>
