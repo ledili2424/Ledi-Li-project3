@@ -9,7 +9,7 @@ export default function Signup() {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  async function onSignUp(e) {
+  async function handleSignUp(e) {
     e.preventDefault();
     if (!username || !password) {
       setError("Please enter username and password");
@@ -38,7 +38,7 @@ export default function Signup() {
   }
 
   return (
-    <form onSubmit={onSignUp} className="auth-form">
+    <form onSubmit={handleSignUp} className="auth-form">
       <h1 className="signup-txt">SIGN UP</h1>
       {error && <p>{error}</p>}
       <input

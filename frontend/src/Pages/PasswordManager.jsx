@@ -10,12 +10,63 @@ export default function PasswordManager() {
     symbols: false,
   });
   const [length, setLength] = useState("");
+  const [error, setError] = useState("");
+
   function handleCheckboxChange(e) {
     const { name } = e.target;
     setCheckbox((prev) => ({ ...prev, [name]: !prev[name] }));
   }
+
+  function generateRandomPassword(checkbox, length) {
+    const lowerCaseAlphabet = "abcdefghijklmnopqrstuvwxyz";
+    const upperCaseAlphabet = lowerCaseAlphabet.toUpperCase();
+    const alphabet = lowerCaseAlphabet + upperCaseAlphabet;
+    const numerics = "0123456789";
+    const symbols = "!@#$%^&*()-_=+";
+
+    let password = "";
+    let optionalChars = "";
+
+    //TODO(deal with length == 0 or checkbox not checked)
+
+    optionalChars += checkbox.alphabet ? alphabet : "";
+    optionalChars += checkbox.numerics ? numerics : "";
+    optionalChars += checkbox.symbols ? symbols : "";
+
+    for (let i = 0; i < length; i++) {
+      const randomIndex = Math.floor(Math.random() * optionalChars.length);
+      password += optionalChars[randomIndex];
+    }
+    return password;
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    if (!url) setError("Please enter url");
+    else {
+      if (password) {
+        console.log("do post request");
+      } else {
+        if (!length || parseInt(length) < 4 || parseInt(length) > 40 || isNaN(parseInt(length))) {
+          setError("Password length should be between 4 and 40");
+        } else if (
+          checkbox.alphabet === false &&
+          checkbox.numerics === false &&
+          checkbox.symbols === false
+        ) {
+          setError("Please check at least one box");
+        } else {
+          setPassword(generateRandomPassword(checkbox, length));
+          console.log("Password Generated");
+        }
+      }
+    }
+  }
+
   return (
-    <form className="input-form" >
+    <form onSubmit={handleSubmit} className="input-form">
+      {error && <p>{error}</p>}
       <input
         type="text"
         placeholder="website URL"
@@ -32,8 +83,6 @@ export default function PasswordManager() {
       <input
         type="text"
         placeholder="password length"
-        min="4"
-        max="50"
         value={length}
         onChange={(e) => setLength(e.target.value)}
       />

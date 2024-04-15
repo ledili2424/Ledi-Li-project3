@@ -12,7 +12,7 @@ export default function Login() {
 
   const navigate = useNavigate();
 
-  async function onLogin(e) {
+  async function handleLogin(e) {
     e.preventDefault();
     if (!username || !password) {
       setError("Please enter username and password");
@@ -45,7 +45,7 @@ export default function Login() {
     }
   }
   return (
-    <form className="auth-form" onSubmit={onLogin}>
+    <formon onSubmit={handleLogin} className="auth-form" >
       <h1 className="login-txt">LOG IN</h1>
       {error && <p>{error}</p>}
       <input
@@ -61,6 +61,6 @@ export default function Login() {
         onChange={(e) => setPassword(e.target.value)}
       />
       <button className="login-btn">Log in</button>
-    </form>
+    </formon>
   );
 }
