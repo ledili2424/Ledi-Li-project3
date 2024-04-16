@@ -45,7 +45,7 @@ export default function Login() {
     }
   }
   return (
-    <formon onSubmit={handleLogin} className="auth-form" >
+    <form onSubmit={handleLogin} className="auth-form" >
       <h1 className="login-txt">LOG IN</h1>
       {error && <p>{error}</p>}
       <input
@@ -61,6 +61,6 @@ export default function Login() {
         onChange={(e) => setPassword(e.target.value)}
       />
       <button className="login-btn">Log in</button>
-    </formon>
+    </form>
   );
 }

@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 import "./password_manager.css";
+import PasswordList from "./Components/PasswordList";
 
 export default function PasswordManager() {
   const [url, setUrl] = useState("");
@@ -11,6 +13,19 @@ export default function PasswordManager() {
   });
   const [length, setLength] = useState("");
   const [error, setError] = useState("");
+  const [passwordList, setPasswordList] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/password", { withCredentials: true })
+      .then((res) => {
+        console.log("Get passwords response data:", res.data);
+        setPasswordList(res.data);
+      })
+      .catch((err) => {
+        console.error("Error:", err);
+      });
+  }, []);
 
   function handleCheckboxChange(e) {
     const { name } = e.target;
@@ -26,8 +41,6 @@ export default function PasswordManager() {
 
     let password = "";
     let optionalChars = "";
-
-    //TODO(deal with length == 0 or checkbox not checked)
 
     optionalChars += checkbox.alphabet ? alphabet : "";
     optionalChars += checkbox.numerics ? numerics : "";
@@ -45,10 +58,13 @@ export default function PasswordManager() {
 
     if (!url) setError("Please enter url");
     else {
-      if (password) {
-        console.log("do post request");
-      } else {
-        if (!length || parseInt(length) < 4 || parseInt(length) > 40 || isNaN(parseInt(length))) {
+      if (!password) {
+        if (
+          !length ||
+          parseInt(length) < 4 ||
+          parseInt(length) > 40 ||
+          isNaN(parseInt(length))
+        ) {
           setError("Password length should be between 4 and 40");
         } else if (
           checkbox.alphabet === false &&
@@ -57,74 +73,101 @@ export default function PasswordManager() {
         ) {
           setError("Please check at least one box");
         } else {
-          setPassword(generateRandomPassword(checkbox, length));
-          console.log("Password Generated");
+          const newPassword = generateRandomPassword(checkbox, length);
+          setPassword(newPassword);
+
+          console.log("Password Generated" + newPassword + "!");
+          addPassword(newPassword);
         }
+      } else {
+        addPassword(password);
       }
     }
   }
 
+  function addPassword(password) {
+    axios
+      .post(
+        "http://localhost:5000/password",
+        { url, password },
+        {
+          withCredentials: true,
+        }
+      )
+      .then((res) => {
+        console.log("Add Password response data:", res.data);
+        setPasswordList((prev) => [...prev, res.data.data]);
+      })
+      .catch((err) => {
+        console.error("Add Password Error:", err);
+      });
+  }
+
   return (
-    <form onSubmit={handleSubmit} className="input-form">
-      {error && <p>{error}</p>}
-      <input
-        type="text"
-        placeholder="website URL"
-        value={url}
-        onChange={(e) => setUrl(e.target.value)}
-      />
-      <input
-        type="text"
-        placeholder="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
+    <>
+      <form onSubmit={handleSubmit} className="input-form">
+        {error && <p>{error}</p>}
+        <input
+          type="text"
+          placeholder="website URL"
+          value={url}
+          onChange={(e) => setUrl(e.target.value)}
+        />
+        <input
+          type="text"
+          placeholder="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
 
-      <input
-        type="text"
-        placeholder="password length"
-        value={length}
-        onChange={(e) => setLength(e.target.value)}
-      />
+        <input
+          type="text"
+          placeholder="password length"
+          value={length}
+          onChange={(e) => setLength(e.target.value)}
+        />
 
-      <div className="checkbox">
-        <div className="option">
-          <input
-            type="checkbox"
-            id="alphabet"
-            name="alphabet"
-            checked={checkbox.alphabet}
-            onChange={handleCheckboxChange}
-            className="option-name"
-          />
-          <label htmlFor="alphabet">Alphabet</label>
+        <div className="checkbox">
+          <div className="option">
+            <input
+              type="checkbox"
+              id="alphabet"
+              name="alphabet"
+              checked={checkbox.alphabet}
+              onChange={handleCheckboxChange}
+              className="option-name"
+            />
+            <label htmlFor="alphabet">Alphabet</label>
+          </div>
+
+          <div className="option">
+            <input
+              type="checkbox"
+              id="numerics"
+              name="numerics"
+              checked={checkbox.numerics}
+              onChange={handleCheckboxChange}
+              className="option-name"
+            />
+            <label htmlFor="numerics">Numerals</label>
+          </div>
+          <div className="option">
+            <input
+              type="checkbox"
+              id="symbols"
+              name="symbols"
+              checked={checkbox.symbols}
+              onChange={handleCheckboxChange}
+              className="option-name"
+            />
+            <label htmlFor="symbols">Symbols</label>
+          </div>
         </div>
 
-        <div className="option">
-          <input
-            type="checkbox"
-            id="numerics"
-            name="numerics"
-            checked={checkbox.numerics}
-            onChange={handleCheckboxChange}
-            className="option-name"
-          />
-          <label htmlFor="numerics">Numerals</label>
-        </div>
-        <div className="option">
-          <input
-            type="checkbox"
-            id="symbols"
-            name="symbols"
-            checked={checkbox.symbols}
-            onChange={handleCheckboxChange}
-            className="option-name"
-          />
-          <label htmlFor="symbols">Symbols</label>
-        </div>
-      </div>
+        <button className="add-psw-btn">Add Password</button>
+      </form>
 
-      <button className="add-psw-btn">Add Password</button>
-    </form>
+      <PasswordList passwordInfos={passwordList} />
+    </>
   );
 }

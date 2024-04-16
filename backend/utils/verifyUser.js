@@ -10,6 +10,7 @@ const verifyUser = (req, res, next) => {
   jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
     if (err) return res.status(403).json({ message: "Token is not valid" });
     req.username = decoded.username;
+    req.id = decoded.id
     next();
   });
 };

@@ -24,7 +24,7 @@ router.post("/signup", async (req, res) => {
   try {
     const salt = bcrypt.genSaltSync(saltRounds);
     const hash = bcrypt.hashSync(password, salt);
-    const user = await User.create({
+    await User.create({
       username,
       password: hash,
     });
@@ -88,7 +88,9 @@ router.post("/login", async (req, res) => {
 });
 
 router.get("/profile", verifyUser, (req, res) => {
-  return res.status(200).json({ status: "success", username: req.username });
+  return res
+    .status(200)
+    .json({ status: "success", username: req.username });
 });
 
 router.post("/logout", (req, res) => {
