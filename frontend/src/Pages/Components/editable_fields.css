@@ -1,0 +1,14 @@
+.editable-field {
+    color: #3b0764;
+    font-weight: 300;
+    cursor: pointer;
+    margin-left:20px
+  }
+  
+  .editable-field:hover {
+    text-shadow: 2px 2px 4px #c4b5fd;
+  }
+  
+  .editable-input {
+    width: 200px;
+  }

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import './editable_fields.css';
 
 function EditableField({ initialValue }) {
   const [value, setValue] = useState(initialValue);
@@ -18,9 +19,15 @@ function EditableField({ initialValue }) {
       }}
       onBlur={handleBlur}
       autoFocus
+      className="editable-input"
     />
   ) : (
-    <p onDoubleClick={() => setIsEditing(true)}>{value}</p>
+    <p
+      onClick={() => setIsEditing(true)}
+      className="editable-field"
+    >
+      {value}
+    </p>
   );
 }
 
