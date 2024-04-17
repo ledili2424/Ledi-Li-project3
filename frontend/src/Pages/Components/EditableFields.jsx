@@ -9,32 +9,41 @@ function EditableField({ initialValue, id, field }) {
   const handleBlur = async () => {
     setIsEditing(false);
 
-    const res = await axios.put(
-      `http://localhost:5000/password/${id}`,
-      { [field]: value },
-      {
-        withCredentials: true,
-      }
-    );
+    if (value.trim() !== "") {
+      const res = await axios.put(
+        `http://localhost:5000/password/${id}`,
+        { [field]: value },
+        {
+          withCredentials: true,
+        }
+      );
 
-    setValue(res.data.data[field]);
+      setValue(res.data.data[field]);
+    } else {
+      window.alert("Updated value cannot be empty");
+      setIsEditing(true);
+    }
   };
 
-  return isEditing ? (
-    <input
-      type="text"
-      value={value}
-      onChange={(e) => {
-        setValue(e.target.value);
-      }}
-      onBlur={handleBlur}
-      autoFocus
-      className="editable-input"
-    />
-  ) : (
-    <p onClick={() => setIsEditing(true)} className="editable-field">
-      {value}
-    </p>
+  return (
+    <div>
+      {isEditing ? (
+        <input
+          type="text"
+          value={value}
+          onChange={(e) => {
+            setValue(e.target.value);
+          }}
+          onBlur={handleBlur}
+          autoFocus
+          className="editable-input"
+        />
+      ) : (
+        <p onClick={() => setIsEditing(true)} className="editable-field">
+          {value}
+        </p>
+      )}
+    </div>
   );
 }
 
