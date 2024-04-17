@@ -1,13 +1,23 @@
 import { useState } from "react";
-import './editable_fields.css';
+import axios from "axios";
+import "./editable_fields.css";
 
-function EditableField({ initialValue }) {
+function EditableField({ initialValue, id, field }) {
   const [value, setValue] = useState(initialValue);
   const [isEditing, setIsEditing] = useState(false);
 
-  const handleBlur = () => {
+  const handleBlur = async () => {
     setIsEditing(false);
-    //TODO:update the data in database
+
+    const res = await axios.put(
+      `http://localhost:5000/password/${id}`,
+      { [field]: value },
+      {
+        withCredentials: true,
+      }
+    );
+
+    setValue(res.data.data[field]);
   };
 
   return isEditing ? (
@@ -22,10 +32,7 @@ function EditableField({ initialValue }) {
       className="editable-input"
     />
   ) : (
-    <p
-      onClick={() => setIsEditing(true)}
-      className="editable-field"
-    >
+    <p onClick={() => setIsEditing(true)} className="editable-field">
       {value}
     </p>
   );

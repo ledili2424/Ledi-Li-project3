@@ -14,8 +14,17 @@ function PasswordList({ passwordInfos }) {
       {passwordInfos &&
         passwordInfos.map((info, index) => (
           <div key={index} className="password-item">
-            <EditableField initialValue={info.url} className="url" />
-            <EditableField initialValue={info.password} />
+            <EditableField
+              initialValue={info.url}
+              id={info._id}
+              field="url"
+              className="url"
+            />
+            <EditableField
+              initialValue={info.password}
+              id={info._id}
+              field="password"
+            />
             <button onClick={handleDelete} className="delete-btn">
               ❌
             </button>
