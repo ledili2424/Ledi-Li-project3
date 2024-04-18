@@ -17,7 +17,7 @@ router.get("/", verifyUser, async (req, res) => {
 
     return res.status(200).json(passwordInfos);
   } catch (err) {
-    return res.status(500).json({ message: "Server error" });
+    return res.status(500).json({ message: err });
   }
 });
 
@@ -55,11 +55,25 @@ router.put("/:id", verifyUser, async (req, res) => {
     }
 
     res.status(200).json({
-      message: "Password Updated",
+      message: "Password updated",
       data: updatedPassword,
     });
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    res.status(500).json({ message: err });
+  }
+});
+
+router.delete("/:id", verifyUser, async (req, res) => {
+  try {
+    await PasswordInfo.findByIdAndDelete(req.params.id);
+
+    res.status(204).json({
+      message: "Password deleted",
+    });
+  } catch (err) {
+    res.status(404).json({
+      message: err,
+    });
   }
 });
 

@@ -1,9 +1,8 @@
+import DeleteButton from "./DeleteButton";
 import EditableField from "./EditableFields";
 import "./password_list.css";
 
-function PasswordList({ passwordInfos }) {
-  function handleDelete() {}
-
+function PasswordList({ passwordInfos, refreshPasswordList }) {
   return (
     <div className="password-list">
       <div className="title-container">
@@ -12,8 +11,8 @@ function PasswordList({ passwordInfos }) {
       </div>
 
       {passwordInfos &&
-        passwordInfos.map((info, index) => (
-          <div key={index} className="password-item">
+        passwordInfos.map((info) => (
+          <div key={info._id} className="password-item">
             <EditableField
               initialValue={info.url}
               id={info._id}
@@ -25,9 +24,10 @@ function PasswordList({ passwordInfos }) {
               id={info._id}
               field="password"
             />
-            <button onClick={handleDelete} className="delete-btn">
-              ❌
-            </button>
+            <DeleteButton
+              id={info._id}
+              refreshPasswordList={refreshPasswordList}
+            />
           </div>
         ))}
     </div>

@@ -56,7 +56,7 @@ export default function PasswordManager() {
   function handleSubmit(e) {
     e.preventDefault();
 
-    if (!url) setError("Please enter url");
+    if (!url) setError("Please enter url!");
     else {
       if (!password) {
         if (
@@ -65,13 +65,13 @@ export default function PasswordManager() {
           parseInt(length) > 40 ||
           isNaN(parseInt(length))
         ) {
-          setError("Password length should be between 4 and 40");
+          setError("Password length should be between 4 and 40!");
         } else if (
           checkbox.alphabet === false &&
           checkbox.numerics === false &&
           checkbox.symbols === false
         ) {
-          setError("Please check at least one box");
+          setError("Please check at least one box!");
         } else {
           const newPassword = generateRandomPassword(checkbox, length);
           setPassword(newPassword);
@@ -101,7 +101,13 @@ export default function PasswordManager() {
       .catch((err) => {
         console.error("Add Password Error:", err);
       });
+
+    setPassword("");
   }
+
+  const refreshPasswordList = (id) => {
+    setPasswordList(passwordList.filter((password) => password._id !== id));
+  };
 
   return (
     <>
@@ -167,7 +173,10 @@ export default function PasswordManager() {
         <button className="add-psw-btn">Add Password</button>
       </form>
 
-      <PasswordList passwordInfos={passwordList} />
+      <PasswordList
+        passwordInfos={passwordList}
+        refreshPasswordList={refreshPasswordList}
+      />
     </>
   );
 }

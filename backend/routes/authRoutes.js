@@ -17,7 +17,7 @@ router.post("/signup", async (req, res) => {
   if (password.length < 6) {
     return res.status(400).json({
       status: "fail",
-      message: "Password must be at least 6 characters long",
+      message: "Password must be at least 6 characters long!",
     });
   }
 
@@ -31,13 +31,13 @@ router.post("/signup", async (req, res) => {
 
     res.status(201).json({
       status: "success",
-      message: "User has been created ",
+      message: "User has been created",
     });
   } catch (err) {
     if (err.code == 11000 && err.keyPattern && err.keyPattern.username) {
       return res.status(400).json({
         status: "fail",
-        message: "Username has been taken, please enter another name",
+        message: "Username has been taken, please enter another name!",
       });
     }
     res.status(500).json({
@@ -63,7 +63,7 @@ router.post("/login", async (req, res) => {
     if (!isCorrectPsw) {
       return res.status(400).json({
         status: "fail",
-        message: "Wrong password",
+        message: "Wrong password!",
       });
     }
 
