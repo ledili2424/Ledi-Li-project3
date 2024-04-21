@@ -27,8 +27,6 @@ export default function Login() {
           headers: {
             "Content-Type": "application/json",
           },
-        },
-        {
           withCredentials: true,
         }
       );
@@ -45,7 +43,7 @@ export default function Login() {
     }
   }
   return (
-    <form onSubmit={handleLogin} className="auth-form" >
+    <form onSubmit={handleLogin} className="auth-form">
       <h1 className="login-txt">LOG IN</h1>
       {error && <p>{error}</p>}
       <input

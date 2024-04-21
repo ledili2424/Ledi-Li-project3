@@ -11,15 +11,15 @@ const PasswordShareRequestSchema = new mongoose.Schema({
     ref: "User",
     required: true,
   },
-  password:{
-    type:mongoose.Schema.Types.ObjectId,
-    ref:"PasswordInfo",
-    required:true,
+  password: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "PasswordInfo",
+    required: true,
   },
   status: {
     type: String,
-    enum: ["accepted", "not accepted"],
-    default: "not accepted",
+    enum: ["accepted", "pending", "rejected"],
+    default: "pending",
   },
 });
 

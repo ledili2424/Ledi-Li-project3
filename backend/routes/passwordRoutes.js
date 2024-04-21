@@ -8,14 +8,6 @@ const cookieParser = require("cookie-parser");
 const router = express.Router();
 router.use(cookieParser());
 
-const getUser = async (username) => {
-  const user = await User.findOne({ username });
-  if (!user) {
-    throw new Error("User not found");
-  }
-  return user;
-};
-
 router.post("/", verifyUser, async (req, res) => {
   const { url, password } = req.body;
 
@@ -86,21 +78,26 @@ router.post("/share-request", verifyUser, async (req, res) => {
   const { receiverName, url } = req.body;
 
   try {
-    const receiver = await getUser(receiverName);
+    const receiver = await User.findOne({ username: receiverName });
+    if (!receiver) {
+      return res.status(404).json({
+        message: "User not found",
+      });
+    }
     const passwordInfo = await PasswordInfo.findOne({ url });
 
     const newShareRequest = await PasswordShareRequest.create({
       sender: req.id,
       receiver: receiver._id,
       password: passwordInfo._id,
-      status: "not accepted",
+      status: "pending",
     });
     res.status(200).json({
       message: "Share request sent",
       data: newShareRequest,
     });
   } catch (err) {
-    res.status(500).json({ message: "Failed to send share request" });
+    res.status(500).json({ message: "Internal server error" });
   }
 });
 
