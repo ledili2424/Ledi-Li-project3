@@ -23,9 +23,13 @@ export default function Header() {
 
   function handleLogout() {
     axios
-      .post("http://localhost:5000/auth/logout", {
-        withCredentials: true,
-      })
+      .post(
+        "http://localhost:5000/auth/logout",
+        {},
+        {
+          withCredentials: true,
+        }
+      )
       .then(() => {
         console.log("Logged out successfully");
         setUserData(null);

@@ -108,6 +108,7 @@ router.get("/shared", verifyUser, async (req, res) => {
   try {
     const sharedRequests = await PasswordShareRequest.find({
       receiver: req.id,
+      status: "accepted",
     });
     const sharedPasswords = await Promise.all(
       sharedRequests.map(async (request) => {
@@ -121,6 +122,33 @@ router.get("/shared", verifyUser, async (req, res) => {
   }
 });
 
+router.put("/share-request/:id", verifyUser, async (req, res) => {
+  const { id } = req.params;
+  const { status } = req.body;
 
+  try {
+    const updatedShareRequest = await PasswordShareRequest.findByIdAndUpdate(
+      id,
+      { status },
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
+
+    if (!updatedShareRequest) {
+      return res
+        .status(404)
+        .json({ message: "No share request found with this id" });
+    }
+
+    res.status(200).json({
+      message: "Share request updated",
+      data: updatedShareRequest,
+    });
+  } catch (err) {
+    res.status(500).json({ message: err });
+  }
+});
 
 module.exports = router;

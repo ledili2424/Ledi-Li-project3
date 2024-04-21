@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import "./password_manager.css";
 import PasswordList from "./Components/PasswordList";
+import SharePasswordForm from "./Components/SharePasswordForm";
 
 export default function PasswordManager() {
   const [url, setUrl] = useState("");
@@ -53,7 +54,7 @@ export default function PasswordManager() {
     return password;
   }
 
-  function handleSubmit(e) {
+  function handleSubmitPassword(e) {
     e.preventDefault();
 
     if (!url) setError("Please enter url!");
@@ -111,7 +112,7 @@ export default function PasswordManager() {
 
   return (
     <>
-      <form onSubmit={handleSubmit} className="input-form">
+      <form onSubmit={handleSubmitPassword} className="input-form">
         {error && <p>{error}</p>}
         <input
           type="text"
@@ -177,6 +178,7 @@ export default function PasswordManager() {
         passwordInfos={passwordList}
         refreshPasswordList={refreshPasswordList}
       />
+      <SharePasswordForm />
     </>
   );
 }
