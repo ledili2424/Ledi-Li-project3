@@ -153,9 +153,16 @@ router.put("/share-request/:id", verifyUser, async (req, res) => {
         .json({ message: "No share request found with this id" });
     }
 
+    const newAcceptedPassword = await PasswordInfo.findOne({
+      _id: updatedShareRequest.password,
+    });
+    const userId = newAcceptedPassword.user;
+    const { username } = await User.findOne({ _id: userId });
+    const resPassword = { ...newAcceptedPassword._doc, senderName: username };
+
     res.status(200).json({
       message: "Share request updated",
-      data: updatedShareRequest,
+      data: resPassword,
     });
   } catch (err) {
     res.status(500).json({ message: err });

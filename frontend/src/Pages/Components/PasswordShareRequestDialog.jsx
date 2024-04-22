@@ -5,13 +5,12 @@ import {
   DialogContent,
   Button,
   List,
-  DialogActions,
   ListItem,
   ListItemText,
 } from "@material-ui/core";
 import axios from "axios";
 
-function PasswordShareRequestDialog() {
+function PasswordShareRequestDialog({ setSharedPasswordList }) {
   const [requests, setRequests] = useState([]);
   const [isOpen, setOpen] = useState(false);
 
@@ -41,11 +40,12 @@ function PasswordShareRequestDialog() {
         { withCredentials: true }
       )
       .then((res) => {
-        console.log("accepted request", res.data);
+        console.log("accepted request", res.data.data);
         setRequests((prevRequests) =>
           prevRequests.filter((request) => request._id !== requestId)
         );
         setOpen(false);
+        setSharedPasswordList((prevList) => [...prevList, res.data.data]);
       })
       .catch((err) => {
         console.error("Error accepting password share request:", err);
@@ -60,7 +60,7 @@ function PasswordShareRequestDialog() {
         { withCredentials: true }
       )
       .then((res) => {
-        console.log("rejected request", res.data);
+        console.log("rejected password", res.data.data);
         setRequests((prevRequests) =>
           prevRequests.filter((request) => request._id !== requestId)
         );

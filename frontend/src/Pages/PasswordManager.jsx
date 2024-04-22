@@ -16,6 +16,7 @@ export default function PasswordManager() {
   const [length, setLength] = useState("");
   const [error, setError] = useState("");
   const [passwordList, setPasswordList] = useState([]);
+  const [sharedPasswordList, setSharedPasswordList] = useState([]);
 
   useEffect(() => {
     axios
@@ -182,8 +183,8 @@ export default function PasswordManager() {
         refreshPasswordList={refreshPasswordList}
       />
 
-      <SharePasswordForm />
-      <PasswordShareRequestDialog />
+      <SharePasswordForm sharedPasswordList={sharedPasswordList} setSharedPasswordList={setSharedPasswordList}/>
+      <PasswordShareRequestDialog setSharedPasswordList={setSharedPasswordList}/>
     </>
   );
 }

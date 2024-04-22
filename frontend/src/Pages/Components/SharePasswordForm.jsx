@@ -2,9 +2,8 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import SharedPasswordList from "./SharedPasswordList";
 
-export default function SharePasswordForm() {
+export default function SharePasswordForm({sharedPasswordList, setSharedPasswordList}) {
   const [message, setMessage] = useState("");
-  const [sharedPasswordList, setSharedPasswordList] = useState([]);
   const [url, setUrl] = useState("");
   const [receiverName, setReceiverName] = useState("");
 
@@ -21,7 +20,7 @@ export default function SharePasswordForm() {
       }
     };
     getSharedPassword();
-  }, []);
+  }, [setSharedPasswordList]);
 
   function handleSubmitShareRequest(e) {
     e.preventDefault();
