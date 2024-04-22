@@ -123,7 +123,7 @@ router.get("/shared", verifyUser, async (req, res) => {
         const password = await PasswordInfo.findById(request.password);
         const userId = password.user;
         const { username } = await User.findOne({ _id: userId });
-        return {...password._doc, senderName: username};
+        return { ...password._doc, senderName: username };
       })
     );
 
@@ -159,6 +159,31 @@ router.put("/share-request/:id", verifyUser, async (req, res) => {
     });
   } catch (err) {
     res.status(500).json({ message: err });
+  }
+});
+
+router.get("/pending-requests", verifyUser, async (req, res) => {
+  try {
+    const pendingRequests = await PasswordShareRequest.find({
+      receiver: req.id,
+      status: "pending",
+    });
+    const pendingPasswords = await Promise.all(
+      pendingRequests.map(async (request) => {
+        const password = await PasswordInfo.findById(request.password);
+        const userId = password.user;
+        const { username } = await User.findOne({ _id: userId });
+        return {
+          ...password._doc,
+          senderName: username,
+          requestId: request._id,
+        };
+      })
+    );
+
+    return res.status(200).json(pendingPasswords.flat());
+  } catch (err) {
+    return res.status(500).json({ message: err });
   }
 });
 

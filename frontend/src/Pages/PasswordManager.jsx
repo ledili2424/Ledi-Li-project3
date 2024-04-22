@@ -3,6 +3,7 @@ import axios from "axios";
 import "./password_manager.css";
 import PasswordList from "./Components/PasswordList";
 import SharePasswordForm from "./Components/SharePasswordForm";
+import PasswordShareRequestDialog from "./Components/PasswordShareRequestDialog";
 
 export default function PasswordManager() {
   const [url, setUrl] = useState("");
@@ -112,7 +113,7 @@ export default function PasswordManager() {
 
   return (
     <>
-    <h2>Add Password</h2>
+      <h2>Add Password</h2>
       <form onSubmit={handleSubmitPassword} className="input-form">
         {error && <p>{error}</p>}
         <input
@@ -182,6 +183,7 @@ export default function PasswordManager() {
       />
 
       <SharePasswordForm />
+      <PasswordShareRequestDialog />
     </>
   );
 }
