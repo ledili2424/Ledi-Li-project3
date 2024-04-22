@@ -112,6 +112,7 @@ export default function PasswordManager() {
 
   return (
     <>
+    <h2>Add Password</h2>
       <form onSubmit={handleSubmitPassword} className="input-form">
         {error && <p>{error}</p>}
         <input
@@ -174,10 +175,12 @@ export default function PasswordManager() {
         <button className="add-psw-btn">Add Password</button>
       </form>
 
+      <h2>My Passwords</h2>
       <PasswordList
         passwordInfos={passwordList}
         refreshPasswordList={refreshPasswordList}
       />
+
       <SharePasswordForm />
     </>
   );

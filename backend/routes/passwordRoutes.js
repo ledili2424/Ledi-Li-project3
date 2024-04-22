@@ -78,13 +78,24 @@ router.post("/share-request", verifyUser, async (req, res) => {
   const { receiverName, url } = req.body;
 
   try {
+    if (req.username === receiverName) {
+      return res.status(400).json({
+        message: "You cannot share a password with yourself!",
+      });
+    }
+
     const receiver = await User.findOne({ username: receiverName });
     if (!receiver) {
       return res.status(404).json({
-        message: "User not found",
+        message: "User not found!",
       });
     }
     const passwordInfo = await PasswordInfo.findOne({ url });
+    if (!passwordInfo) {
+      return res.status(404).json({
+        message: "Password not found!",
+      });
+    }
 
     const newShareRequest = await PasswordShareRequest.create({
       sender: req.id,
@@ -110,9 +121,12 @@ router.get("/shared", verifyUser, async (req, res) => {
     const sharedPasswords = await Promise.all(
       sharedRequests.map(async (request) => {
         const password = await PasswordInfo.findById(request.password);
-        return password;
+        const userId = password.user;
+        const { username } = await User.findOne({ _id: userId });
+        return {...password._doc, senderName: username};
       })
     );
+
     return res.status(200).json(sharedPasswords.flat());
   } catch (err) {
     return res.status(500).json({ message: err });

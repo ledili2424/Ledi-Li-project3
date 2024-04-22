@@ -1,11 +1,27 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import SharedPasswordList from "./SharedPasswordList";
 
 export default function SharePasswordForm() {
   const [message, setMessage] = useState("");
   const [sharedPasswordList, setSharedPasswordList] = useState([]);
   const [url, setUrl] = useState("");
   const [receiverName, setReceiverName] = useState("");
+
+  useEffect(() => {
+    const getSharedPassword = async () => {
+      try {
+        const res = await axios.get("http://localhost:5000/password/shared", {
+          withCredentials: true,
+        });
+        console.log("Get shared passwords response data:", res.data);
+        setSharedPasswordList(res.data);
+      } catch (err) {
+        console.error("Error get shared passwords:", err);
+      }
+    };
+    getSharedPassword();
+  }, []);
 
   function handleSubmitShareRequest(e) {
     e.preventDefault();
@@ -36,7 +52,7 @@ export default function SharePasswordForm() {
 
   return (
     <>
-      <h1>Share Password</h1>
+      <h2>Share Password</h2>
       <form onSubmit={handleSubmitShareRequest} className="input-form">
         {message && <p>{message}</p>}
         <input
@@ -53,6 +69,9 @@ export default function SharePasswordForm() {
         />
         <button className="add-psw-btn">Share Password</button>
       </form>
+
+      <h2>Received Passwords</h2>
+      <SharedPasswordList sharedPasswordInfos={sharedPasswordList}/>
     </>
   );
 }
