@@ -61,8 +61,17 @@ router.put("/:id", verifyUser, async (req, res) => {
 });
 
 router.delete("/:id", verifyUser, async (req, res) => {
+  const { id } = req.params;
   try {
-    await PasswordInfo.findByIdAndDelete(req.params.id);
+    const deletedPassword = await PasswordInfo.findByIdAndDelete(id);
+
+    if (!deletedPassword) {
+      return res
+        .status(404)
+        .json({ message: "No password found with this id" });
+    }
+
+    await PasswordShareRequest.deleteMany({ password: id });
 
     res.status(204).json({
       message: "Password deleted",
@@ -121,6 +130,9 @@ router.get("/shared", verifyUser, async (req, res) => {
     const sharedPasswords = await Promise.all(
       sharedRequests.map(async (request) => {
         const password = await PasswordInfo.findById(request.password);
+        if (!password) {
+          return null;
+        }
         const userId = password.user;
         const { username } = await User.findOne({ _id: userId });
         return { ...password._doc, senderName: username };
