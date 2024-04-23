@@ -39,7 +39,7 @@ function EditableField({ initialValue, id, field }) {
           className="editable-input"
         />
       ) : (
-        <p onClick={() => setIsEditing(true)} className="editable-field">
+        <p onClick={() => setIsEditing(true)} className="password-content">
           {value}
         </p>
       )}

@@ -38,6 +38,8 @@ export default function SharePasswordForm({sharedPasswordList, setSharedPassword
         .then((res) => {
           console.log("Share Password response data:", res.data);
           setMessage("Password sent successfully!");
+          setReceiverName("")
+          setUrl("")
         })
         .catch((err) => {
           console.error("Share Password Error:", err);
@@ -51,7 +53,7 @@ export default function SharePasswordForm({sharedPasswordList, setSharedPassword
 
   return (
     <>
-      <h2>Share Password</h2>
+      <h2 className="shared-heading">Share Password</h2>
       <form onSubmit={handleSubmitShareRequest} className="input-form">
         {message && <p>{message}</p>}
         <input
@@ -69,7 +71,7 @@ export default function SharePasswordForm({sharedPasswordList, setSharedPassword
         <button className="add-psw-btn">Share Password</button>
       </form>
 
-      <h2>Received Passwords</h2>
+      <h2 className="shared-heading">Received Passwords</h2>
       <SharedPasswordList sharedPasswordInfos={sharedPasswordList}/>
     </>
   );

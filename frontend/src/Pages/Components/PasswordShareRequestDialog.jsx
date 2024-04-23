@@ -8,11 +8,32 @@ import {
   ListItem,
   ListItemText,
 } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles({
+  dialog: {
+    backgroundColor: "#f5f5f5",
+  },
+  title: {
+    color: "#333",
+  },
+  content: {
+    color: "#666",
+  },
+  button: {
+    width: "90px",
+    marginLeft: "20px",
+    border: "1px solid grey",
+    fontSize: "smaller",
+  },
+});
 import axios from "axios";
 
 function PasswordShareRequestDialog({ setSharedPasswordList }) {
   const [requests, setRequests] = useState([]);
   const [isOpen, setOpen] = useState(false);
+
+  const classes = useStyles();
 
   useEffect(() => {
     axios
@@ -44,7 +65,7 @@ function PasswordShareRequestDialog({ setSharedPasswordList }) {
         setRequests((prevRequests) =>
           prevRequests.filter((request) => request._id !== requestId)
         );
-        setOpen(false);
+        if (requests.length === 0) setOpen(false);
         setSharedPasswordList((prevList) => [...prevList, res.data.data]);
       })
       .catch((err) => {
@@ -64,7 +85,7 @@ function PasswordShareRequestDialog({ setSharedPasswordList }) {
         setRequests((prevRequests) =>
           prevRequests.filter((request) => request._id !== requestId)
         );
-        setOpen(false);
+        if (requests.length === 0) setOpen(false);
       })
       .catch((err) => {
         console.error("Error rejecting password share request:", err);
@@ -72,19 +93,27 @@ function PasswordShareRequestDialog({ setSharedPasswordList }) {
   }
 
   return (
-    <Dialog open={isOpen}>
-      <DialogTitle>{"New Password Share prevRequests"}</DialogTitle>
-      <DialogContent>
+    <Dialog open={isOpen} className={classes.dialog}>
+      <DialogTitle className={classes.title}>
+        {"New Password Share Requests"}
+      </DialogTitle>
+      <DialogContent className={classes.content}>
         <List>
           {requests.map((request) => (
             <ListItem key={request._id}>
               <ListItemText
                 primary={`Password share request from ${request.senderName}`}
               />
-              <Button onClick={() => handleAccept(request.requestId)}>
+              <Button
+                onClick={() => handleAccept(request.requestId)}
+                className={classes.button}
+              >
                 Accept
               </Button>
-              <Button onClick={() => handleReject(request.requestId)}>
+              <Button
+                onClick={() => handleReject(request.requestId)}
+                className={classes.button}
+              >
                 Reject
               </Button>
             </ListItem>

@@ -14,7 +14,7 @@ export default function PasswordManager() {
     symbols: false,
   });
   const [length, setLength] = useState("");
-  const [error, setError] = useState("");
+  const [message, setMessage] = useState("");
   const [passwordList, setPasswordList] = useState([]);
   const [sharedPasswordList, setSharedPasswordList] = useState([]);
 
@@ -59,7 +59,7 @@ export default function PasswordManager() {
   function handleSubmitPassword(e) {
     e.preventDefault();
 
-    if (!url) setError("Please enter url!");
+    if (!url) setMessage("Please enter url!");
     else {
       if (!password) {
         if (
@@ -68,13 +68,13 @@ export default function PasswordManager() {
           parseInt(length) > 40 ||
           isNaN(parseInt(length))
         ) {
-          setError("Password length should be between 4 and 40!");
+          setMessage("Password length should be between 4 and 40!");
         } else if (
           checkbox.alphabet === false &&
           checkbox.numerics === false &&
           checkbox.symbols === false
         ) {
-          setError("Please check at least one box!");
+          setMessage("Please check at least one box!");
         } else {
           const newPassword = generateRandomPassword(checkbox, length);
           setPassword(newPassword);
@@ -104,8 +104,15 @@ export default function PasswordManager() {
       .catch((err) => {
         console.error("Add Password Error:", err);
       });
-
+    setMessage("Password added successfully!");
     setPassword("");
+    setUrl("");
+    setLength("");
+    setCheckbox({
+      alphabet: false,
+      numerics: false,
+      symbols: false,
+    });
   }
 
   const refreshPasswordList = (id) => {
@@ -114,9 +121,9 @@ export default function PasswordManager() {
 
   return (
     <>
-      <h2>Add Password</h2>
+      <h2 className="heading">My Passwords</h2>
       <form onSubmit={handleSubmitPassword} className="input-form">
-        {error && <p>{error}</p>}
+        {message && <p>{message}</p>}
         <input
           type="text"
           placeholder="website URL"
@@ -177,14 +184,18 @@ export default function PasswordManager() {
         <button className="add-psw-btn">Add Password</button>
       </form>
 
-      <h2>My Passwords</h2>
       <PasswordList
         passwordInfos={passwordList}
         refreshPasswordList={refreshPasswordList}
       />
 
-      <SharePasswordForm sharedPasswordList={sharedPasswordList} setSharedPasswordList={setSharedPasswordList}/>
-      <PasswordShareRequestDialog setSharedPasswordList={setSharedPasswordList}/>
+      <SharePasswordForm
+        sharedPasswordList={sharedPasswordList}
+        setSharedPasswordList={setSharedPasswordList}
+      />
+      <PasswordShareRequestDialog
+        setSharedPasswordList={setSharedPasswordList}
+      />
     </>
   );
 }
