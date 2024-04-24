@@ -7,6 +7,7 @@ import {
   List,
   ListItem,
   ListItemText,
+  DialogActions,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -26,12 +27,20 @@ const useStyles = makeStyles({
     border: "1px solid grey",
     fontSize: "smaller",
   },
+  handledButton: {
+    width: "90px",
+    marginLeft: "20px",
+    border: "none",
+    fontSize: "smaller",
+    fontWeight: "bold",
+  },
 });
 import axios from "axios";
 
 function PasswordShareRequestDialog({ setSharedPasswordList }) {
   const [requests, setRequests] = useState([]);
   const [isOpen, setOpen] = useState(false);
+  const [handleRequests, setHandledRequests] = useState({});
 
   const classes = useStyles();
 
@@ -62,19 +71,16 @@ function PasswordShareRequestDialog({ setSharedPasswordList }) {
       )
       .then((res) => {
         console.log("accepted request", res.data.data);
-        setRequests((prevRequests) => {
-          const newRequests = prevRequests.filter(
-            (request) => request._id !== requestId
-          );
-          return newRequests;
-        });
+        setRequests((prevRequests) =>
+          prevRequests.filter((request) => request._id !== requestId)
+        );
         setSharedPasswordList((prevList) => [...prevList, res.data.data]);
+        setHandledRequests((prev) => ({ ...prev, [requestId]: "accepted" }));
       })
       .catch((err) => {
         console.error("Error accepting password share request:", err);
         setRequests((prevRequests) => [...prevRequests, requestId]);
       });
-    if (requests.length === 0) setOpen(false);
   }
 
   function handleReject(requestId) {
@@ -86,13 +92,10 @@ function PasswordShareRequestDialog({ setSharedPasswordList }) {
       )
       .then((res) => {
         console.log("rejected password", res.data.data);
-        setRequests((prevRequests) => {
-          const newRequests = prevRequests.filter(
-            (request) => request._id !== requestId
-          );
-          if (newRequests.length === 0) setOpen(false);
-          return newRequests;
-        });
+        setRequests((prevRequests) =>
+          prevRequests.filter((request) => request._id !== requestId)
+        );
+        setHandledRequests((prev) => ({ ...prev, [requestId]: "rejected" }));
       })
       .catch((err) => {
         console.error("Error rejecting password share request:", err);
@@ -113,13 +116,21 @@ function PasswordShareRequestDialog({ setSharedPasswordList }) {
               />
               <Button
                 onClick={() => handleAccept(request.requestId)}
-                className={classes.button}
+                className={
+                  handleRequests[request.requestId] === "accepted"
+                    ? classes.handledButton
+                    : classes.button
+                }
               >
                 Accept
               </Button>
               <Button
                 onClick={() => handleReject(request.requestId)}
-                className={classes.button}
+                className={
+                  handleRequests[request.requestId] === "rejected"
+                    ? classes.handledButton
+                    : classes.button
+                }
               >
                 Reject
               </Button>
@@ -127,6 +138,14 @@ function PasswordShareRequestDialog({ setSharedPasswordList }) {
           ))}
         </List>
       </DialogContent>
+      <DialogActions>
+        <Button
+          onClick={() => setOpen(false)}
+          disabled={Object.keys(handleRequests).length !== requests.length}
+        >
+          Confirm
+        </Button>
+      </DialogActions>
     </Dialog>
   );
 }
