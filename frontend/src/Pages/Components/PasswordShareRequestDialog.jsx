@@ -62,15 +62,19 @@ function PasswordShareRequestDialog({ setSharedPasswordList }) {
       )
       .then((res) => {
         console.log("accepted request", res.data.data);
-        setRequests((prevRequests) =>
-          prevRequests.filter((request) => request._id !== requestId)
-        );
-        if (requests.length === 0) setOpen(false);
+        setRequests((prevRequests) => {
+          const newRequests = prevRequests.filter(
+            (request) => request._id !== requestId
+          );
+          return newRequests;
+        });
         setSharedPasswordList((prevList) => [...prevList, res.data.data]);
       })
       .catch((err) => {
         console.error("Error accepting password share request:", err);
+        setRequests((prevRequests) => [...prevRequests, requestId]);
       });
+    if (requests.length === 0) setOpen(false);
   }
 
   function handleReject(requestId) {
@@ -82,10 +86,13 @@ function PasswordShareRequestDialog({ setSharedPasswordList }) {
       )
       .then((res) => {
         console.log("rejected password", res.data.data);
-        setRequests((prevRequests) =>
-          prevRequests.filter((request) => request._id !== requestId)
-        );
-        if (requests.length === 0) setOpen(false);
+        setRequests((prevRequests) => {
+          const newRequests = prevRequests.filter(
+            (request) => request._id !== requestId
+          );
+          if (newRequests.length === 0) setOpen(false);
+          return newRequests;
+        });
       })
       .catch((err) => {
         console.error("Error rejecting password share request:", err);
