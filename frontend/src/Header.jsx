@@ -11,7 +11,7 @@ export default function Header() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/auth/profile", {
+      .get("https://ledi-li-project3.onrender.com/auth/profile", {
         withCredentials: true,
       })
       .then((res) => {
@@ -24,7 +24,7 @@ export default function Header() {
   function handleLogout() {
     axios
       .post(
-        "http://localhost:5000/auth/logout",
+        "https://ledi-li-project3.onrender.com/auth/logout",
         {},
         {
           withCredentials: true,

@@ -11,7 +11,7 @@ function EditableField({ initialValue, id, field }) {
 
     if (value.trim() !== "") {
       const res = await axios.put(
-        `http://localhost:5000/password/${id}`,
+        `https://ledi-li-project3.onrender.com/password/${id}`,
         { [field]: value },
         {
           withCredentials: true,

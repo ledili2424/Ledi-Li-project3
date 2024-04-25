@@ -20,7 +20,7 @@ export default function PasswordManager() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/password", { withCredentials: true })
+      .get("https://ledi-li-project3.onrender.com/password", { withCredentials: true })
       .then((res) => {
         console.log("Get passwords response data:", res.data);
         setPasswordList(res.data);
@@ -91,7 +91,7 @@ export default function PasswordManager() {
   function addPassword(password) {
     axios
       .post(
-        "http://localhost:5000/password",
+        "https://ledi-li-project3.onrender.com/password",
         { url, password },
         {
           withCredentials: true,
