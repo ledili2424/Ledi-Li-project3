@@ -3,6 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "proxy": "https://ledi-li-project3.onrender.com",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
