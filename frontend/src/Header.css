@@ -8,6 +8,7 @@ header {
 header nav {
   display: flex;
   justify-content: space-around;
+  flex-wrap: wrap;
 }
 
 .nav-link {
@@ -17,6 +18,7 @@ header nav {
 
 .auth-div {
   margin-right: -30px;
+  margin: 5px;
 }
 
 .auth-div .nav-link {
@@ -36,4 +38,15 @@ header nav {
   padding: 7px;
   text-decoration: none;
   color: #8b008b;
+}
+
+@media screen and (max-width: 700px) {
+  header {
+    padding-inline: 10px;
+  }
+
+  .nav-link,
+  .username {
+    font-size: 0.8em;
+  }
 }
