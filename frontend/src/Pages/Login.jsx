@@ -21,7 +21,7 @@ export default function Login() {
 
     try {
       const response = await axios.post(
-        "https://ledi-li-project3.onrender.com/auth/login",
+        "/api/auth/login",
         { username, password },
         {
           headers: {

@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const authRouter = require("./routes/authRoutes.js");
 const passwordRouter = require("./routes/passwordRoutes.js");
+const path = require("path");
 
 dotenv.config({ path: "./config.env" });
 
@@ -18,8 +19,15 @@ mongoose
   .then(() => console.log("connected"))
   .catch((err) => console.error("MongoDB connection error:", err));
 
-app.use("/auth", authRouter);
-app.use("/password", passwordRouter);
+// let frontendDir = path.join(__dirname, "../frontend/dist");
+// app.use(express.static(frontendDir));
+// app.get("*", function (req, res) {
+//   console.log("Received request");
+//   res.sendFile(path.join(frontendDir, "index.html"));
+// });
+
+app.use("/api/auth", authRouter);
+app.use("/api/password", passwordRouter);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);

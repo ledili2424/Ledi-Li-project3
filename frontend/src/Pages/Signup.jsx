@@ -18,7 +18,7 @@ export default function Signup() {
 
     try {
       await axios.post(
-        "https://ledi-li-project3.onrender.com/auth/signup",
+        "/api/auth/signup",
         { username, password },
         {
           headers: {
