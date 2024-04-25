@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
-import "./header.css";
 import { useEffect, useContext } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "./UserContext";
+import "./header.css";
 
 export default function Header() {
   const { userData, setUserData } = useContext(UserContext);
