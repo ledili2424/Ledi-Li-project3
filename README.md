@@ -15,4 +15,4 @@ cd backend
 
 **nodemon** index.js
 
-You should be able to access the application at http://localhost:5000/
+You should be able to access the application at http://localhost:5000
