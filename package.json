@@ -1,0 +1,22 @@
+{
+  "name": "Ledi-Li-project3",
+  "version": "1.0.0",
+  "main": "index.js",
+  "workspaces": [
+    "backend",
+    "frontend"
+  ],
+  "repository": "https://github.com/ledili2424/Ledi-Li-project3.git",
+  "author": "Ledi Li <ledili2424@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "concurrently \"yarn dev -w backend\" \"yarn dev -w frontend\"",
+    "build": "yarn build -ws --if-present",
+    "prod": "yarn start -w backend"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "concurrently": "^8.0.1"
+  }
+}
