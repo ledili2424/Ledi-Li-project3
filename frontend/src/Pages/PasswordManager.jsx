@@ -20,7 +20,7 @@ export default function PasswordManager() {
 
   useEffect(() => {
     axios
-      .get("https://ledi-li-project3.vercel.app/api/password", {
+      .get("http://localhost:5000/api/password", {
         withCredentials: true,
       })
       .then((res) => {

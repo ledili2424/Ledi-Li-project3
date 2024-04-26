@@ -12,18 +12,11 @@ const port = process.env.PORT || 5000;
 
 app.use(
   cors({
-    origin: "https://ledili-project3-frontend.vercel.app",
+    origin: "http://localhost:5173",
     credentials: true,
   })
 );
 app.options("*", cors());
-app.use((req, res, next) => {
-  if (req.method === "OPTIONS") {
-    res.status(200).end();
-    return;
-  }
-  next();
-});
 app.use(express.json());
 
 mongoose

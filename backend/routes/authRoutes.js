@@ -48,9 +48,6 @@ router.post("/signup", async (req, res) => {
 });
 
 router.post("/login", async (req, res) => {
-  if (req.method === "OPTIONS") {
-    return res.status(200).send("ok");
-  }
 
   const { username, password } = req.body;
 
