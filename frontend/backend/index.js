@@ -12,7 +12,6 @@ const port = process.env.PORT || 5000;
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
     credentials: true,
   })
 );
@@ -22,7 +21,6 @@ mongoose
   .connect(process.env.DATABASE)
   .then(() => console.log("connected"))
   .catch((err) => console.error("MongoDB connection error:", err));
-
 
 app.use("/api/auth", authRouter);
 app.use("/api/password", passwordRouter);
