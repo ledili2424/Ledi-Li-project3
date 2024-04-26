@@ -20,7 +20,9 @@ export default function PasswordManager() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/password", { withCredentials: true })
+      .get(`${process.env.REACT_BASEURL}/api/password`, {
+        withCredentials: true,
+      })
       .then((res) => {
         console.log("Get passwords response data:", res.data);
         setPasswordList(res.data);
@@ -91,7 +93,7 @@ export default function PasswordManager() {
   function addPassword(password) {
     axios
       .post(
-        "http://localhost:5000/api/password",
+        `${process.env.REACT_BASEURL}/api/password`,
         { url, password },
         {
           withCredentials: true,

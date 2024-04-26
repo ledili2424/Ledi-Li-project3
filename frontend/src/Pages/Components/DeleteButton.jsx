@@ -2,7 +2,7 @@ import axios from "axios";
 
 function DeleteButton({ id, refreshPasswordList }) {
   async function handleDelete() {
-    await axios.delete(`http://localhost:5000/api/password/${id}`, {
+    await axios.delete(`${process.env.REACT_BASEURL}/api/password/${id}`, {
       withCredentials: true,
     });
     refreshPasswordList(id);

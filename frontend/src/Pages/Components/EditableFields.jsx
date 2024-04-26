@@ -11,7 +11,7 @@ function EditableField({ initialValue, id, field }) {
 
     if (value.trim() !== "") {
       const res = await axios.put(
-        `http://localhost:5000/api/password/${id}`,
+        `${process.env.REACT_BASEURL}/api/password/${id}`,
         { [field]: value },
         {
           withCredentials: true,

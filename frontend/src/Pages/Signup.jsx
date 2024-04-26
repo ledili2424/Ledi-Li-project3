@@ -18,7 +18,7 @@ export default function Signup() {
 
     try {
       await axios.post(
-        "http://localhost:5000/api/auth/signup",
+        `${process.env.REACT_BASEURL}/api/auth/signup`,
         { username, password },
         {
           headers: {

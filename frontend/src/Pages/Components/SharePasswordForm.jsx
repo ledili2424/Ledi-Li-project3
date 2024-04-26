@@ -10,7 +10,7 @@ export default function SharePasswordForm({sharedPasswordList, setSharedPassword
   useEffect(() => {
     const getSharedPassword = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/password/shared", {
+        const res = await axios.get(`${process.env.REACT_BASEURL}/api/password/shared`, {
           withCredentials: true,
         });
         console.log("Get shared passwords response data:", res.data);
@@ -29,7 +29,7 @@ export default function SharePasswordForm({sharedPasswordList, setSharedPassword
     } else {
       axios
         .post(
-          "http://localhost:5000/api/password/share-request",
+          `${process.env.REACT_BASEURL}/api/password/share-request`,
           { receiverName, url },
           {
             withCredentials: true,

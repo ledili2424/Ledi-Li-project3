@@ -11,7 +11,7 @@ export default function Header() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/auth/profile", {
+      .get(`${process.env.REACT_BASEURL}/api/auth/profile`, {
         withCredentials: true,
       })
       .then((res) => {
@@ -24,7 +24,7 @@ export default function Header() {
   function handleLogout() {
     axios
       .post(
-        "http://localhost:5000/api/auth/logout",
+        `${process.env.REACT_BASEURL}/api/auth/logout`,
         {},
         {
           withCredentials: true,
