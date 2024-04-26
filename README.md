@@ -5,21 +5,22 @@ To start frontend application, you should run:
 cd frontend
 
 **yarn** dev  
-<br />
+
 
 
 You should be able to access the application at http://localhost:5173/
-
+<br />
 
 To start backend application, you should run:
 
 cd backend
 
 **nodemon** index.js  
-<br />
+
 
 
 You should be able to access the application at http://localhost:5000
+<br />
 
 To install dependencies, you should run:  
 
