@@ -29,7 +29,7 @@ export default function SharePasswordForm({sharedPasswordList, setSharedPassword
     } else {
       axios
         .post(
-          "https://ledi-li-project3.vercel.app/api/password/share-request`,
+          "https://ledi-li-project3.vercel.app/api/password/share-request",
           { receiverName, url },
           {
             withCredentials: true,
