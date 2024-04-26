@@ -20,7 +20,7 @@ export default function PasswordManager() {
 
   useEffect(() => {
     axios
-      .get("https://ledi-li-project3.vercel.app/api/password", {
+      .get("https://psw-backend.onrender.com/api/password", {
         withCredentials: true,
       })
       .then((res) => {
@@ -93,7 +93,7 @@ export default function PasswordManager() {
   function addPassword(password) {
     axios
       .post(
-        "https://ledi-li-project3.vercel.app/api/password",
+        "https://psw-backend.onrender.com/api/password",
         { url, password },
         {
           withCredentials: true,
