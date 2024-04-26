@@ -22,7 +22,7 @@ export default function Signup() {
         password,
       });
       console.log("User sign up successfully!");
-      navigate("/manager");
+      navigate("/login");
     } catch (err) {
       console.log("Error sign up", err);
       if (err.response) {
