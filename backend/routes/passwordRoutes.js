@@ -135,7 +135,12 @@ router.get("/shared", verifyUser, async (req, res) => {
         }
         const userId = password.user;
         const { username } = await User.findOne({ _id: userId });
-        return { ...password._doc, senderName: username };
+        const requestId = request._id;
+        return {
+          ...password._doc,
+          senderName: username,
+          requestId: request._id,
+        };
       })
     );
 
