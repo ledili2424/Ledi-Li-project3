@@ -12,6 +12,7 @@ const port = process.env.PORT || 5000;
 
 app.use(
   cors({
+    origin: "https://ledi-li-project3-fullstack.vercel.app",
     credentials: true,
   })
 );
