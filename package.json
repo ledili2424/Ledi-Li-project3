@@ -2,10 +2,6 @@
   "name": "Ledi-Li-project3",
   "version": "1.0.0",
   "main": "index.js",
-  "workspaces": [
-    "backend",
-    "frontend"
-  ],
   "repository": "https://github.com/ledili2424/Ledi-Li-project3.git",
   "author": "Ledi Li <ledili2424@gmail.com>",
   "license": "MIT",
