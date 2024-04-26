@@ -1,9 +1,9 @@
 const express = require("express");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const User = require("./../models/User");
+const User = require("../models/User");
 const cookieParser = require("cookie-parser");
-const verifyUser = require("./../utils/verifyUser");
+const verifyUser = require("../utils/verifyUser");
 
 const saltRounds = 10;
 
@@ -88,9 +88,7 @@ router.post("/login", async (req, res) => {
 });
 
 router.get("/profile", verifyUser, (req, res) => {
-  return res
-    .status(200)
-    .json({ status: "success", username: req.username });
+  return res.status(200).json({ status: "success", username: req.username });
 });
 
 router.post("/logout", (req, res) => {

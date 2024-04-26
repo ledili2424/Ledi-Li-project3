@@ -1,7 +1,7 @@
 const express = require("express");
-const verifyUser = require("./../utils/verifyUser");
+const verifyUser = require("../utils/verifyUser");
 const PasswordInfo = require("../models/PasswordInfo");
-const User = require("./../models/User");
+const User = require("../models/User");
 const PasswordShareRequest = require("../models/PasswordShareRequest");
 const cookieParser = require("cookie-parser");
 
