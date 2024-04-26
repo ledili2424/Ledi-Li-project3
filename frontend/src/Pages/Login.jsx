@@ -21,7 +21,7 @@ export default function Login() {
 
     try {
       const response = await axios.post(
-        "https://psw-backend.onrender.com/api/auth/login",
+        "https://ledi-li-project3.vercel.app/api/auth/login",
         { username, password },
         {
           headers: {

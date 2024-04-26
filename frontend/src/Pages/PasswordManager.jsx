@@ -20,7 +20,7 @@ export default function PasswordManager() {
 
   useEffect(() => {
     axios
-      .get("https://psw-backend.onrender.com/api/password", {
+      .get("https://ledi-li-project3.vercel.app/api/password", {
         withCredentials: true,
       })
       .then((res) => {
