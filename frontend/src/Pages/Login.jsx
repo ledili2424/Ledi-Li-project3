@@ -24,9 +24,6 @@ export default function Login() {
         "https://ledi-li-project3.vercel.app/api/auth/login",
         { username, password },
         {
-          headers: {
-            "Content-Type": "application/json",
-          },
           withCredentials: true,
         }
       );
