@@ -12,7 +12,7 @@ const port = process.env.PORT || 5000;
 
 app.use(
   cors({
-    origin: "*",
+    origin: "https://ledili-project3-frontend.vercel.app",
     credentials: true,
   })
 );

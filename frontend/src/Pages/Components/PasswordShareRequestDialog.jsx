@@ -46,7 +46,7 @@ function PasswordShareRequestDialog({ setSharedPasswordList }) {
 
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_BASEURL}/api/password/pending-requests`, {
+      .get("https://ledili-project3-frontend.vercel.app/api/password/pending-requests", {
         withCredentials: true,
       })
       .then((res) => {
@@ -65,7 +65,7 @@ function PasswordShareRequestDialog({ setSharedPasswordList }) {
     console.log(requestId);
     axios
       .put(
-        `${process.env.REACT_BASEURL}/api/password/share-request/${requestId}`,
+        `https://ledi-li-project3.vercel.app/api/password/share-request/${requestId}`,
         { status: "accepted" },
         { withCredentials: true }
       )
@@ -86,7 +86,7 @@ function PasswordShareRequestDialog({ setSharedPasswordList }) {
   function handleReject(requestId) {
     axios
       .put(
-        `${process.env.REACT_BASEURL}/api/password/share-request/${requestId}`,
+        `https://ledi-li-project3.vercel.app/api/password/share-request/${requestId}`,
         { status: "rejected" },
         { withCredentials: true }
       )

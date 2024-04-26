@@ -10,7 +10,7 @@ export default function SharePasswordForm({sharedPasswordList, setSharedPassword
   useEffect(() => {
     const getSharedPassword = async () => {
       try {
-        const res = await axios.get(`${process.env.REACT_BASEURL}/api/password/shared`, {
+        const res = await axios.get("https://ledi-li-project3.vercel.app/api/password/shared", {
           withCredentials: true,
         });
         console.log("Get shared passwords response data:", res.data);
@@ -29,7 +29,7 @@ export default function SharePasswordForm({sharedPasswordList, setSharedPassword
     } else {
       axios
         .post(
-          `${process.env.REACT_BASEURL}/api/password/share-request`,
+          "https://ledi-li-project3.vercel.app/api/password/share-request",
           { receiverName, url },
           {
             withCredentials: true,
