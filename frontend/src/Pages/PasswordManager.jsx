@@ -93,7 +93,7 @@ export default function PasswordManager() {
   function addPassword(password) {
     axios
       .post(
-        "https://psw-backend.onrender.com/api/password",
+        "http://localhost:5000/api/password",
         { url, password },
         {
           withCredentials: true,
