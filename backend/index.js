@@ -17,6 +17,13 @@ app.use(
   })
 );
 app.options("*", cors());
+app.use((req, res, next) => {
+  if (req.method === "OPTIONS") {
+    res.status(200).end();
+    return;
+  }
+  next();
+});
 app.use(express.json());
 
 mongoose
