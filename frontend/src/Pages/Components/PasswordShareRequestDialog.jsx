@@ -65,7 +65,7 @@ function PasswordShareRequestDialog({ setSharedPasswordList }) {
     console.log(requestId);
     axios
       .put(
-        `https://ledi-li-project3.vercel.app/api/password/share-request/${requestId}`,
+        `http://localhost:5000/api/password/share-request/${requestId}`,
         { status: "accepted" },
         { withCredentials: true }
       )
@@ -86,7 +86,7 @@ function PasswordShareRequestDialog({ setSharedPasswordList }) {
   function handleReject(requestId) {
     axios
       .put(
-        `https://ledi-li-project3.vercel.app/api/password/share-request/${requestId}`,
+        `http://localhost:5000/api/password/share-request/${requestId}`,
         { status: "rejected" },
         { withCredentials: true }
       )

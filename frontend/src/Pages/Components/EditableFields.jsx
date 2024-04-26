@@ -11,7 +11,7 @@ function EditableField({ initialValue, id, field }) {
 
     if (value.trim() !== "") {
       const res = await axios.put(
-        `https://ledi-li-project3.vercel.app/api/password/${id}`,
+        `http://localhost:5000/api/password/${id}`,
         { [field]: value },
         {
           withCredentials: true,

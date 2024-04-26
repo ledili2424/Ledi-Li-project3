@@ -11,7 +11,7 @@ export default function Header() {
 
   useEffect(() => {
     axios
-      .get("https://ledi-li-project3.vercel.app/api/auth/profile", {
+      .get("http://localhost:5000/api/auth/profile", {
         withCredentials: true,
       })
       .then((res) => {
@@ -24,7 +24,7 @@ export default function Header() {
   function handleLogout() {
     axios
       .post(
-        "https://ledi-li-project3.vercel.app/api/auth/logout",
+        "http://localhost:5000/api/auth/logout",
         {},
         {
           withCredentials: true,
