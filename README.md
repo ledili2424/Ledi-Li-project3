@@ -16,7 +16,7 @@ cd backend
 
 **nodemon** index.js  
 
-The server will be running at PORT 5000  
+The server will be lisentening to PORT 5000  
 <br />
 
 
