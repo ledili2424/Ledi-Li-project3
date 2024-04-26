@@ -18,7 +18,7 @@ export default function Signup() {
 
     try {
       await axios.post(
-        "/api/auth/signup",
+        "https://ledi-li-project3.vercel.app/api/auth/signup",
         { username, password },
         {
           headers: {

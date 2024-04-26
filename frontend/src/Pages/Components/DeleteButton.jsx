@@ -2,7 +2,7 @@ import axios from "axios";
 
 function DeleteButton({ id, refreshPasswordList }) {
   async function handleDelete() {
-    await axios.delete(`/api/password/${id}`, {
+    await axios.delete(`https://ledi-li-project3.vercel.app/api/password/${id}`, {
       withCredentials: true,
     });
     refreshPasswordList(id);
