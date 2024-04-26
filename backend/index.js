@@ -10,9 +10,15 @@ dotenv.config({ path: "./config.env" });
 const app = express();
 const port = process.env.PORT || 5000;
 
-app.use(cors());
+app.use(function (request, response, next) {
+  response.header("Access-Control-Allow-Origin", "*");
+  response.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
+});
 
-app.options("*", cors());
 app.use(express.json());
 
 mongoose
