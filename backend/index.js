@@ -4,14 +4,19 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const authRouter = require("./routes/authRoutes.js");
 const passwordRouter = require("./routes/passwordRoutes.js");
-const path = require("path");
 
 dotenv.config({ path: "./config.env" });
 
 const app = express();
 const port = process.env.PORT || 5000;
 
-app.use(cors({ origin: "https://ledili-project3-frontend.vercel.app/", credentials: true }));
+app.use(
+  cors({
+    origin: "https://ledili-project3-frontend.vercel.app/",
+    credentials: true,
+  })
+);
+app.options("*", cors());
 app.use(express.json());
 
 mongoose
