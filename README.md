@@ -1,6 +1,6 @@
 # Password Manager
 
-A secure password management system built with the MERN stack that allows users to safely store, manage, and share their credentials.
+A secure password management system built with the MERN stack that allows users to safely store, manage, and share their accounts with passwords.
 
 ## 🔐 Features
 
