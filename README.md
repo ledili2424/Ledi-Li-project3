@@ -1,6 +1,6 @@
 # Password Manager
 
-A secure password management system built with the MERN stack that allows users to safely store, manage, and share their accounts with passwords.
+A secure password management system built with the MERN stack that allows users to safely store, manage, and share their accounts with passwords
 
 ## 🔐 Features
 
@@ -11,7 +11,7 @@ A secure password management system built with the MERN stack that allows users 
 ## 🛠️ Tech Stack
 
 - **Frontend**: React, Material UI
-- **Backend**: Node.js, Express
+- **Backend**: Node.js + Express
 - **Database**: MongoDB
 - **Authentication**: JWT
 
