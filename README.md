@@ -23,6 +23,7 @@ A secure password management system built with the MERN stack that allows users 
 - [ ] Enhance notification system with window alerts
 - [ ] Implement collapsible shared password information to simplify the UI and optimize loading
 - [ ] Add responsive design for all screen sizes
+- [ ] Stored user Passwords encryption
 
 ## 🔗 Live Demo
 
