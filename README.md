@@ -37,7 +37,6 @@ Check out the [live demo](https://app.ledi-password-manager.com/)
 
 ### Run App
 
-Install dependencies
 ```bash
 # Install dependencies
 yarn install
@@ -45,8 +44,8 @@ yarn install
 
 ```bash
 # Run server
+cd backend
 nodemon index.js
-npm run dev
 
 # Run client in another terminal
 cd frontend
