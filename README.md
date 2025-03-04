@@ -30,11 +30,6 @@ Check out the [live demo](https://app.ledi-password-manager.com/)
 
 ## 🚀 Getting Started
 
-### Prerequisites
-
-- Node.js
-- MongoDB
-
 ### Run App
 
 ```bash
